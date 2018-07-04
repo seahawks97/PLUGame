@@ -1,9 +1,10 @@
 # To Do:
 1. Make it work
+- [ ] Choose between names or numbers
 - [ ] Random generator
 - [ ] Read a dictionary (PLUdict.txt)
 - [ ] See if it is a correct match
-- [ ] Rounds (How many Qs will there be? User defined?)
+- [ ] Rounds (How many Qs will there be? User input?)
 - [ ] Give basic stats
 2. Profiles
 - [ ] .txt?
