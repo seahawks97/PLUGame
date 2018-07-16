@@ -2,6 +2,7 @@
 # Project Started 3 July 2018
 # Python v3.6.3
 # Last Updated: 16 July 2018
+# Read about this project here: https://github.com/seahawks97/PLUGame
 
 import random
 import csv
@@ -64,7 +65,7 @@ def new_game():
             dif = 4
             for n in mydict:
                 del mydict[n]["Difficulty"]
-            newdict = {**mydict[1], **mydict[2], **mydict[3]}                      # Puts all into 1 dict
+            newdict = {**mydict[1], **mydict[2], **mydict[3]}     # Puts all into 1 dict
             mydict[4] = newdict
             break
         elif difficulty == "q":
@@ -88,23 +89,21 @@ def new_game():
         else:
             print("Please type a whole number in the inclusive range 1-" + str(num_items) + ".")
 
-    # Decides which questions to ask: PLUs or names
-    # The only difference is to read the keys or values
+    # Decides which questions to ask: PLUs or names, where the only difference is to read the keys or values
     while True:
         setting = input("Select one to test yourself on: (P)LUs; (N)ames; (Q)uit. ").lower()
-        correct_answered = 0                # +1 if answered correctly
+        correct_answered = 0                                      # +1 if answered correctly
 
         # Questions asked
         if setting == "p":
             print("You have chosen to be asked the PLU of a given item name.\n")
             confirmation()
 
-            # list_of_keys = list(mydict[dif].keys())             # could be useful later
-            rand_plu_list = random.sample(list(mydict[dif].keys()), total_num_rounds)  # gets random list of unique PLUs
-            #print(rand_plu_list)                                 # useful for editing (answer key)
+            rand_plu_list = random.sample(list(mydict[dif].keys()), total_num_rounds)  # Random list of unique PLUs
+            #print(rand_plu_list)                                 # Useful for editing (answer key)
 
-            for i in range(total_num_rounds):                  # i is the whole number (inc, exc)
-                generated_plu = rand_plu_list[i]                  # random PLU generated from index
+            for i in range(total_num_rounds):                     # i is a whole number (inc, exc)
+                generated_plu = rand_plu_list[i]                  # The PLU generated from each index is random
 
                 # Parses the value into a readable format
                 string_out = ""
@@ -128,15 +127,16 @@ def new_game():
             print("You have chosen to be asked the name of a given PLU.\n")
             confirmation()
 
-            rand_name_list = random.sample(list(mydict[dif].values()), total_num_rounds)  # gets random list of unique names
-            #print(rand_name_list)                                  # useful for editing (answer key)
+            rand_name_list = random.sample(list(mydict[dif].values()), total_num_rounds)  # Random list of unique names
+            #print(rand_name_list)                                # Useful for editing (answer key)
 
-            for i in range(total_num_rounds):                   # i is a whole number (inc, exc)
+            for i in range(total_num_rounds):                     # i is a whole number (inc, exc)
 
-                generated_name = rand_name_list[i]                # random name generated from index
-                for key in mydict[dif].keys():
-                    if mydict[dif][key] == generated_name:
+                generated_name = rand_name_list[i]                # The name generated from each index is random
+                for key in mydict[dif].keys():                    # Finds the key (PLU) based on if the generated name
+                    if mydict[dif][key] == generated_name:        # matches the value (name)
                         plu_of_name = key
+                        continue
 
                 # Parse value into readable format, used to compare correct answers
                 string_out = ""
