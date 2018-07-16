@@ -1,7 +1,7 @@
-# PLU Game v0.1 by seahawks97 (Steven Tucker)
+# PLU Game v0.2 by seahawks97 (Steven Tucker)
 # Project Started 3 July 2018
 # Python v3.6.3
-# Last Updated: 13 July 2018
+# Last Updated: 16 July 2018
 
 import random
 import csv
@@ -91,28 +91,19 @@ def new_game():
     # Decides which questions to ask: PLUs or names
     # The only difference is to read the keys or values
     while True:
-        # Confirmation
-        setting = input("Select one to test yourself on: (P)LUs; (N)ames (not yet implemented); (Q)uit. ").lower()
-        while True:
-            ready = input("Are you ready? (Y)es; (Q)uit. ").lower()
-            if ready == "y":
-                break
-            elif ready == "q":
-                print("Goodbye!")
-                exit(1)
-            else:
-                print("Please type a valid command.")
-
-        # Question asked
+        setting = input("Select one to test yourself on: (P)LUs; (N)ames; (Q)uit. ").lower()
         correct_answered = 0                # +1 if answered correctly
+
+        # Questions asked
         if setting == "p":
             print("You have chosen to be asked the PLU of a given item name.\n")
+            confirmation()
 
-            # list_of_keys = list(mydict[dif].keys())
+            # list_of_keys = list(mydict[dif].keys())             # could be useful later
             rand_plu_list = random.sample(list(mydict[dif].keys()), total_num_rounds)  # gets random list of unique PLUs
-            #print(rand_plu_list)                                 # comment out for testing
+            #print(rand_plu_list)                                 # useful for editing (answer key)
 
-            for i in range(0, total_num_rounds):                  # i is the round number (inc, exc)
+            for i in range(total_num_rounds):                  # i is the whole number (inc, exc)
                 generated_plu = rand_plu_list[i]                  # random PLU generated from index
 
                 # Parses the value into a readable format
@@ -134,10 +125,37 @@ def new_game():
             break
 
         elif setting == "n":
-            print("You have chosen to be asked the name of a given PLU.")
-            vals_list = mydict.values()
+            print("You have chosen to be asked the name of a given PLU.\n")
+            confirmation()
+
+            rand_name_list = random.sample(list(mydict[dif].values()), total_num_rounds)  # gets random list of unique names
+            #print(rand_name_list)                                  # useful for editing (answer key)
+
+            for i in range(total_num_rounds):                   # i is a whole number (inc, exc)
+
+                generated_name = rand_name_list[i]                # random name generated from index
+                for key in mydict[dif].keys():
+                    if mydict[dif][key] == generated_name:
+                        plu_of_name = key
+
+                # Parse value into readable format, used to compare correct answers
+                string_out = ""
+                if "_" in generated_name:
+                    string_out += generated_name.replace("_", " ")
+                else:
+                    string_out += generated_name
+
+                # Ask question & determine correctness
+                name_input = input("What is the name associated with PLU #" + plu_of_name + "? ").lower()
+                if name_input == string_out:
+                    correct_answered += 1
+                    print("Correct! " + str(correct_answered) + "/" + str(i+1) + " have been answered correctly.\n")
+                else:
+                    print("Incorrect! " + str(correct_answered) + "/" + str(i+1) + " have been answered correctly. "
+                          "The correct name is " + string_out + ".\n")
 
             break
+
         elif setting == "q":
             print("Goodbye!")
             exit(1)
@@ -153,6 +171,18 @@ def profile():
             profiles = profiles.split("\n")
             profiles = list(filter(None, profiles))
     return profiles
+
+def confirmation():
+    while True:
+        ready = input("Are you ready? (Y)es; (Q)uit. ").lower()
+        if ready == "y":
+            print("")
+            break
+        elif ready == "q":
+            print("Goodbye!")
+            exit(1)
+        else:
+            print("Please type a valid command.")
 
 
 main()
