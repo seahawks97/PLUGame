@@ -1,4 +1,9 @@
 # PLUGame v0.2
+## How to Play
+1. Download the files *PLUG_dict.txt* and *PLUGame.py*
+2. Open command prompt
+3. Change directories to your downloads (something like *"cd C:\User\path\to\downloads"*)
+4. Type *"python PLUGame.py"*
 ## Introduction
 This is a text-based game to help one remember the PLUs of produce items at Food Lion, where I work. PLUG randomizes the content and tracks how well one has done in inputting the correct answer. I made this game for fun but might pass it off to my managers at Food Lion (I'm a cashier) to see if it would be of any use.
 ## How it works
